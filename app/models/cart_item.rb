@@ -3,13 +3,16 @@ class CartItem
     @product_id = product_id
     @quantity = quantity
   end
-  def product_id
-    @product_id
-  end
 
-  def quantity
-    @quantity
-  end
+  attr_reader :product_id, :quantity
+
+ # def product_id
+ #   @product_id
+ # end
+
+ # def quantity
+ #   @quantity
+ # end
 
   def increment
     @quantity = @quantity + 1
