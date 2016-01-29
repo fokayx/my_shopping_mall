@@ -29,7 +29,17 @@ RSpec.describe Cart, type: :model do
 
     # Add more same items to cart, but the item count won't change.
     context "get item from cart" do
-      it "Add more same items to cart, but the item count won't change."
+      it "After the item added to cart, you can get the item back from the cart." do
+        cart = Cart.new
+        p1 = create(:ruby_book)
+        p2 = create(:php_book)
+        4.times { cart.add_item(p1.id) }
+        2.times { cart.add_item(p2.id) }
+
+        expect(cart.items.first.product_id).to be p1.id
+        expect(cart.items.second.product_id).to be p2.id 
+        expect(cart.items.first.product).to be_a Product
+      end
     end
   end
 end
