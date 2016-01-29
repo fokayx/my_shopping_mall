@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Cart, type: :model do
   describe "add or get item from cart" do
-    # Add a item to cart, then the cart won't be empty.
     context "add 1 item" do
       it "Add a item to cart, then the cart won't be empty." do
         cart = Cart.new
@@ -13,9 +12,19 @@ RSpec.describe Cart, type: :model do
       end
     end
 
-    # After the item added to cart, you can get the item back from the cart.
     context "add more same item" do
-      it "After the item added to cart, you can get the item back from the cart."
+      it "Add more same items to cart, but itemcount won't change" do
+        cart = Cart.new
+
+        3.times { cart.add_item(1) }
+        5.times { cart.add_item(2) }
+
+        expect(cart.items.length).to be 2
+        expect(cart.items.first.product_id).to be 1
+        expect(cart.items.first.quantity).to be 3
+        expect(cart.items.second.product_id).to be 2
+        expect(cart.items.second.quantity).to be 5
+      end
     end
 
     # Add more same items to cart, but the item count won't change.
