@@ -9,10 +9,6 @@ class Cart
   end
 
   def empty?
-    if @items.empty?
-      true
-    else
-      false
-    end
+    @items.empty?
   end
 end
