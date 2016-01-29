@@ -1,7 +1,7 @@
 class Cart
 
-  def initialize
-    @items = []
+  def initialize(items = [])
+    @items = items
   end
 
   def add_item(id)
@@ -21,7 +21,41 @@ class Cart
     @items.empty?
   end
 
-  def items
-    @items
+  attr_reader :items
+  # 取代下面3 行
+ # def items
+ #   @items
+ # end
+  #
+
+  def serialize
+  # items = []
+  # @items.each do |item|
+  #   items << {product_id: item.product_id, quantity: item.quantity}
+  # end
+    # 用 map 取代上面的傳統做法。 .map 會回傳陣列
+    items = @items.map { |item|
+      {product_id: item.product_id, quantity: item.quantity}
+    }
+
+    {
+      cart: {
+        items: items
+      }
+    }
+  end
+
+  def self.build_from_hash(hash)
+    if hash.nil?
+      items = []
+    else
+    items = hash[:cart][:items].map do |item_hash|
+         CartItem.new(item_hash[:product_id], item_hash[:quantity])
+      end
+    end
+
+    Cart.new(items)
+
+
   end
 end

@@ -45,5 +45,45 @@ RSpec.describe Cart, type: :model do
         expect(cart.items.first.product).to be_a Product
       end
     end
+
+    context "cart serialize" do
+        context "cart to hash" do
+          it "serialize it's items to hash structure" do
+
+            3.times { cart.add_item(2) }
+            4.times { cart.add_item(5) }
+
+            result_hash = {
+              cart: {
+                items: [
+                  {product_id: 2, quantity: 3},
+                  {product_id: 5, quantity: 4}
+                ]
+              }
+            }
+            
+            expect(cart.serialize).to eq result_hash
+          end
+        end
+
+      context "hash to cart" do
+        it "rebuilt by import a hash structre" do
+            result_hash = {
+              cart: {
+                items: [
+                  {product_id: 2, quantity: 3},
+                  {product_id: 5, quantity: 4}
+                ]
+              }
+            }
+            cart = Cart.build_from_hash(result_hash)
+            expect(cart.items.first.product_id).to be 2
+            expect(cart.items.first.quantity).to be 3
+            expect(cart.items.second.product_id).to be 5
+            expect(cart.items.second.quantity).to be 4
+
+        end
+      end
+    end
   end
 end
