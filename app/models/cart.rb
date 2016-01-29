@@ -55,7 +55,5 @@ class Cart
     end
 
     Cart.new(items)
-
-
   end
 end

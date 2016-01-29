@@ -22,4 +22,9 @@ class CartItem
     Product.find_by(id: @product_id)
   end
 
+  def price
+    product.price * @quantity
+    # 這裡的product是上面的product方法。
+  end
+
 end
