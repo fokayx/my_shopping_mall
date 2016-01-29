@@ -21,6 +21,7 @@ group :development, :test do
   gem 'byebug'
   gem 'guard-rspec', require: false
   gem 'spring-commands-rspec'
+  gem 'timecop'
 end
 
 group :development do

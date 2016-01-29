@@ -97,6 +97,21 @@ RSpec.describe Cart, type: :model do
           expect(cart.total_price).to be 3300
         end
       end
+
+    end
+    
+    describe "special events" do
+      context "Xmas" do
+        it "10% off on Xmas" do
+          p = create(:ruby_book, price: 10)
+          10.times { cart.add_item(p.id)}
+          
+          Timecop.travel(2015, 12, 25) do
+            expect(cart.total_price).to be (100 * 0.9)
+          end
+        end
+
+      end
     end
   end
 end
