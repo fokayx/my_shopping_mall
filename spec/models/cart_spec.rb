@@ -53,35 +53,18 @@ RSpec.describe Cart, type: :model do
             3.times { cart.add_item(2) }
             4.times { cart.add_item(5) }
 
-            result_hash = {
-              cart: {
-                items: [
-                  {product_id: 2, quantity: 3},
-                  {product_id: 5, quantity: 4}
-                ]
-              }
-            }
-            
-            expect(cart.serialize).to eq result_hash
+            expect(cart.serialize).to eq build(:session_hash)
           end
         end
 
       context "hash to cart" do
         it "rebuilt by import a hash structre" do
-            result_hash = {
-              cart: {
-                items: [
-                  {product_id: 2, quantity: 3},
-                  {product_id: 5, quantity: 4}
-                ]
-              }
-            }
-            cart = Cart.build_from_hash(result_hash)
+            cart = Cart.build_from_hash(build(:session_hash))
+
             expect(cart.items.first.product_id).to be 2
             expect(cart.items.first.quantity).to be 3
             expect(cart.items.second.product_id).to be 5
             expect(cart.items.second.quantity).to be 4
-
         end
       end
 
@@ -111,6 +94,19 @@ RSpec.describe Cart, type: :model do
           end
         end
 
+      end
+    end
+
+    describe "special offer" do
+      it "10 月週年慶，滿千送百" do
+        p = create(:ruby_book, price: 300)
+        3.times { cart.add_item(p.id) }
+        expect(cart.total_price).to be 900
+
+        cart.add_item(p.id)
+        Timecop.travel(2016,10) do
+          expect(cart.total_price).to be 1100
+        end
       end
     end
   end
