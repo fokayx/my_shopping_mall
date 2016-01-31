@@ -18,4 +18,9 @@ class CartsController < ApplicationController
     end
     redirect_to products_path
   end
+
+  def checkout
+    @order = Order.new
+    @token = Braintree::ClientToken.generate
+  end
 end

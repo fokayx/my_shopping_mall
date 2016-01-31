@@ -15,6 +15,8 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'carrierwave'
 gem 'simple_form'
 gem 'mini_magick'
+gem "braintree"
+gem 'state_machine'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :products, only:[:index, :show]
+  resources :orders, only:[:create]
   root "products#index"
 #  get "/cart", to: "carts#index"
 
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   # resource 單複數：單數不帶id， 複數 carts/1
   namespace :admin do
     resources :products
+    resources :orders
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

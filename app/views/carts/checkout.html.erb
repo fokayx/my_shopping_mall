@@ -2,10 +2,20 @@
 
 <%= render "cart_list", {cart: @cart} %>
 
-<%= simple_form_for(@recipient) do |f| %>
+<%= simple_form_for(@order) do |f| %>
   <%= f.input :name %>
   <%= f.input :tel %>
   <%= f.input :address %>
   <%= f.input :email %>
-  <%= f.submit "結帳" %>
+  <div id="payment-form"></div>
+  <%= f.submit "結帳", class:'btn btn-danger' %>
 <% end %>
+
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script>
+  var clientToken = "<%= @token %>";
+
+  braintree.setup(clientToken, "dropin", {
+    container: "payment-form"
+    });
+</script>
