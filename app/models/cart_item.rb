@@ -23,8 +23,10 @@ class CartItem
   end
 
   def price
-    product.price * quantity
+    total = product.price * quantity
     # 這裡的product是上面的product方法。
+    total = total - 100 if total >= 1000 and product.special_offer
+    total
   end
 
 end

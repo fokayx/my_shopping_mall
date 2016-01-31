@@ -76,10 +76,10 @@ class Cart
 
     if xmas?
       total = total * 0.9
-    elsif anniversary?
-      if total > 1000
-        total = total - 100
-      end
+  # elsif anniversary?
+  #   if total > 1000
+  #     total = total - 100
+  #   end
     end
     total
   end
@@ -91,6 +91,12 @@ class Cart
 
   def anniversary?
     Time.now.month == 10
+  end
+
+  def special(total)
+    if total > 1000
+      total - 100
+    end
   end
 
 end
