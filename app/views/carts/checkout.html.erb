@@ -2,4 +2,10 @@
 
 <%= render "cart_list", {cart: @cart} %>
 
-<%= link_to '立刻結帳', checkout_cart_path, class:'btn btn-danger' %>
+<%= simple_form_for(@recipient) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :tel %>
+  <%= f.input :address %>
+  <%= f.input :email %>
+  <%= f.submit "結帳" %>
+<% end %>
