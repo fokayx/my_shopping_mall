@@ -7,7 +7,7 @@ class Cart
   def add_item(id)
     # find item .find is RUBY not active record .find
     # item = @items.find { |item| item.product_id == id }
-    item = items.find { |item| item.product_id == id }
+    item = items.find { |t| t.product_id == id }
 
 
     # if item exists, + quantity
@@ -46,7 +46,7 @@ class Cart
    #   }
    # }
     {
-    cart: { items: items.map { |item| {product_id: item.product_id, quantity: item.quantity} } }
+    "cart" => { "items" => items.map { |t| {"product_id" => t.product_id, "quantity" => t.quantity} } }
     }
   end
 
@@ -58,8 +58,8 @@ class Cart
     # items = hash[:cart][:items].map do |item_hash|
     #    CartItem.new(item_hash[:product_id], item_hash[:quantity])
     # end
-      new hash[:cart][:items].map {|item_hash|
-        CartItem.new(item_hash[:product_id], item_hash[:quantity])
+      new hash["cart"]["items"].map {|item_hash|
+        CartItem.new(item_hash["product_id"], item_hash["quantity"])
       }
     end
 

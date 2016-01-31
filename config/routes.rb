@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
-#  resources :products
+  resources :products, only:[:index, :show]
+  root "products#index"
+#  get "/cart", to: "carts#index"
+
+  resource :cart, only: [:show, :destroy] do
+    member do
+      post 'add', path: 'add/:id'
+    end
+  end
+
+  # get '/cart/add/:id'
+
+  # resources :carts
+  # resource :cart
+  # resource 單複數：單數不帶id， 複數 carts/1
   namespace :admin do
     resources :products
   end
